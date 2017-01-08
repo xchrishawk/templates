@@ -1,1 +1,1 @@
-((c++-mode . ((make-build-dir . "${TEMPLATE_PROJECT_DIR}/build"))))
+((c++-mode . ((make-build-dir . "${TEMPLATE_PROJECT_DIR}build"))))
