@@ -5,7 +5,7 @@
 
 # -- Project Configuration --
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.7)
 project(${TEMPLATE_PROJECT_NAME})
 
 # Targets
@@ -17,6 +17,11 @@ set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR})
 
+# Toolchain configuration
+set(CMAKE_CXX_FLAGS "-std=gnu++14 -Wall -Wpedantic")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-Werror -O2 -s")
+
 # -- Third Party Libraries --
 
 # Google Test (for unit testing)
@@ -27,6 +32,8 @@ find_package(GTest)
 # Build main executable
 add_executable(${MAIN_TARGET}
   ${SOURCE_DIR}/main.cpp)
+target_include_directories(${MAIN_TARGET}
+  PRIVATE ${SOURCE_DIR})
 
 # Run main executable
 add_custom_target(run
@@ -43,6 +50,7 @@ if (${GTEST_FOUND})
   add_executable(${TESTS_TARGET} EXCLUDE_FROM_ALL
     ${TESTS_DIR}/main.cpp)
   target_include_directories(${TESTS_TARGET}
+    PRIVATE ${SOURCE_DIR}
     PRIVATE ${GTEST_INCLUDE_DIRS})
   target_link_libraries(${TESTS_TARGET}
     ${GTEST_BOTH_LIBRARIES}
