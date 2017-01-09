@@ -51,6 +51,7 @@ if (${GTEST_FOUND})
     ${TESTS_DIR}/main.cpp)
   target_include_directories(${TESTS_TARGET}
     PRIVATE ${SOURCE_DIR}
+    PRIVATE ${TESTS_DIR}
     PRIVATE ${GTEST_INCLUDE_DIRS})
   target_link_libraries(${TESTS_TARGET}
     ${GTEST_BOTH_LIBRARIES}
